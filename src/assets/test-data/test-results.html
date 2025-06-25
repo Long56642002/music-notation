@@ -357,7 +357,7 @@
                     const grouped = new Map();
                     for (const entry of entries) {
                         if (entry.data.length > 0) {
-                            let path = entry.fullName.startsWith('test-data/') ? entry.fullName : `test-data/${entry.fullName}`;
+                            let path = entry.fullName.startsWith('src/assets/test-data/') ? entry.fullName : `src/assets/test-data/${entry.fullName}`;
                             const key = path.replace('.diff.png', '').replace('.new.png', '') + '.png';
                             if (grouped.has(key)) {
                                 if (entry.fullName.endsWith('.diff.png')) {

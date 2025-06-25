@@ -14,13 +14,13 @@ const params = new URL(window.location.href).searchParams;
 const defaultSettings = {
     core: {
         logLevel: (params.get('loglevel') ?? 'info') as alphaTab.json.CoreSettingsJson['logLevel'],
-        file: '/test-data/audio/full-song.gp5',
-        fontDirectory: '/font/bravura/'
+        file: '/src/assets/test-data/audio/full-song.gp5',
+        fontDirectory: '/src/assets/font/bravura/'
     },
     player: {
         playerMode: alphaTab.PlayerMode.EnabledAutomatic,
         scrollOffsetX: -10,
-        soundFont: '/font/sonivox/sonivox.sf2'
+        soundFont: '/src/assets/font/sonivox/sonivox.sf2'
     }
 } satisfies alphaTab.json.SettingsJson;
 
