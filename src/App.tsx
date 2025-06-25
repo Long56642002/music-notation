@@ -43,10 +43,15 @@ const App = () => {
     if(!element) return
     delete element.dataset.file;
     delete element.dataset.tracks;
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
     element.dataset.tex = true;
     const html = await editor.blocksToHTMLLossy(editor.document);
     element.innerHTML = html;
-    apiRef.current = setupControl('#alphaTab', { file: undefined, tex: ''});
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    apiRef.current = setupControl('#alphaTab', { file: undefined, tex: 'true'});
     apiRef.current.tex(contentInit)
   }
 

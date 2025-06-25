@@ -1,13 +1,13 @@
 import * as alphaTab from '@coderline/alphatab';
-import Handlebars from 'handlebars';
+// import Handlebars from 'handlebars';
 
-const toDomElement = (() => {
-    const parser = document.createElement('div');
-    return (html: string) => {
-        parser.innerHTML = html;
-        return parser.firstElementChild as HTMLElement;
-    };
-})();
+// const toDomElement = (() => {
+//     const parser = document.createElement('div');
+//     return (html: string) => {
+//         parser.innerHTML = html;
+//         return parser.firstElementChild as HTMLElement;
+//     };
+// })();
 
 const params = new URL(window.location.href).searchParams;
 
@@ -47,62 +47,62 @@ type HTMLElementWithTrack = HTMLElement & {
     track: alphaTab.model.Track;
 };
 
-function createTrackItem(
-    at: alphaTab.AlphaTabApi,
-    track: alphaTab.model.Track,
-    trackSelection: Map<number, alphaTab.model.Track>
-) {
-    const trackTemplateHTML = document.querySelector('#at-track-template')!.innerHTML;
-    const trackTemplate = Handlebars.compile(trackTemplateHTML);
-    const trackItem = toDomElement(trackTemplate(track)) as HTMLElementWithTrack;
+// function createTrackItem(
+//     at: alphaTab.AlphaTabApi,
+//     track: alphaTab.model.Track,
+//     trackSelection: Map<number, alphaTab.model.Track>
+// ) {
+//     const trackTemplateHTML = document.querySelector('#at-track-template')!.innerHTML;
+//     const trackTemplate = Handlebars.compile(trackTemplateHTML);
+//     const trackItem = toDomElement(trackTemplate(track)) as HTMLElementWithTrack;
 
-    // init track controls
-    const muteButton = trackItem.querySelector<HTMLButtonElement>('.at-track-mute')!;
-    const soloButton = trackItem.querySelector<HTMLButtonElement>('.at-track-solo')!;
-    const volumeSlider = trackItem.querySelector<HTMLInputElement>('.at-track-volume')!;
+//     // init track controls
+//     const muteButton = trackItem.querySelector<HTMLButtonElement>('.at-track-mute')!;
+//     const soloButton = trackItem.querySelector<HTMLButtonElement>('.at-track-solo')!;
+//     const volumeSlider = trackItem.querySelector<HTMLInputElement>('.at-track-volume')!;
 
-    muteButton.onclick = e => {
-        e.stopPropagation();
-        muteButton.classList.toggle('active');
-        at.changeTrackMute([track], muteButton.classList.contains('active'));
-    };
+//     muteButton.onclick = e => {
+//         e.stopPropagation();
+//         muteButton.classList.toggle('active');
+//         at.changeTrackMute([track], muteButton.classList.contains('active'));
+//     };
 
-    soloButton.onclick = e => {
-        e.stopPropagation();
-        soloButton.classList.toggle('active');
-        at.changeTrackSolo([track], soloButton.classList.contains('active'));
-    };
+//     soloButton.onclick = e => {
+//         e.stopPropagation();
+//         soloButton.classList.toggle('active');
+//         at.changeTrackSolo([track], soloButton.classList.contains('active'));
+//     };
 
-    volumeSlider.oninput = e => {
-        e.preventDefault();
-        // Here we need to do some math to map the 1-16 slider to the
-        // volume in alphaTab. In alphaTab it is 1.0 for 100% which is
-        // equal to the volume in the track information
-        at.changeTrackVolume([track], volumeSlider.valueAsNumber / track.playbackInfo.volume);
-    };
+//     volumeSlider.oninput = e => {
+//         e.preventDefault();
+//         // Here we need to do some math to map the 1-16 slider to the
+//         // volume in alphaTab. In alphaTab it is 1.0 for 100% which is
+//         // equal to the volume in the track information
+//         at.changeTrackVolume([track], volumeSlider.valueAsNumber / track.playbackInfo.volume);
+//     };
 
-    volumeSlider.onclick = e => {
-        e.stopPropagation();
-    };
+//     volumeSlider.onclick = e => {
+//         e.stopPropagation();
+//     };
 
-    trackItem.onclick = e => {
-        e.stopPropagation();
-        if (!e.ctrlKey) {
-            trackSelection.clear();
-            trackSelection.set(track.index, track);
-        } else if (trackSelection.has(track.index)) {
-            trackSelection.delete(track.index);
-        } else {
-            trackSelection.set(track.index, track);
-        }
-        at.renderTracks(Array.from(trackSelection.values()).sort(t => t.index));
-    };
+//     trackItem.onclick = e => {
+//         e.stopPropagation();
+//         if (!e.ctrlKey) {
+//             trackSelection.clear();
+//             trackSelection.set(track.index, track);
+//         } else if (trackSelection.has(track.index)) {
+//             trackSelection.delete(track.index);
+//         } else {
+//             trackSelection.set(track.index, track);
+//         }
+//         at.renderTracks(Array.from(trackSelection.values()).sort(t => t.index));
+//     };
 
-    volumeSlider.valueAsNumber = track.playbackInfo.volume;
+//     volumeSlider.valueAsNumber = track.playbackInfo.volume;
 
-    trackItem.track = track;
-    return trackItem;
-}
+//     trackItem.track = track;
+//     return trackItem;
+// }
 
 let backingTrackScore: alphaTab.model.Score | null;
 let backingTrackAudioElement!: HTMLAudioElement;
