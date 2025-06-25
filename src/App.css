@@ -1,0 +1,15 @@
+.at-wrap {
+  height: 70vh !important;
+  margin: 0;
+}
+.editor-wrap {
+  height: 30vh;
+  overflow-y: auto;
+}
+.editor-wrap > * {
+  width: 100%;
+}
+
+body {
+  height: auto;
+}
